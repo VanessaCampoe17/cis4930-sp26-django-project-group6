@@ -54,3 +54,23 @@ class DataIngestionLog(models.Model):
     records_added = models.IntegerField()
     status = models.CharField(max_length=50)
 
+#For API Intergration: 
+class City(models.Model):
+    name = models.CharField(max_length=100, unique =True)
+
+    class Meta:
+        verbose_name_plural = "Cities"
+
+    def __str__(self):
+        return self.name 
+        
+class WeatherRecord(models.Model):
+    city = models.ForeignKey(City, on_delete = models.CASCADE, related_name='weather_records')
+    date = models.DateField()
+    temperature_max = models.FloatField()
+    temperature_min = models.FloatField()
+    precipitation = models.FloatField(default = 0.0)
+    source = models.CharField(max_length=100, default='Open-Mateo API')
+
+    def __str__(self):
+        return f"{self.city.name} - {self.date}"    
