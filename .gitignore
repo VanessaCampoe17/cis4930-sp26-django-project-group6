@@ -1,0 +1,7 @@
+#Django Database
+db.sqlite3
+
+#python chache
+__pychache__/
+*.pyc
+
