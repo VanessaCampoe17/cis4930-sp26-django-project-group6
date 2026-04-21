@@ -5,8 +5,8 @@ from .models import AttackCategory, SecurityEvent, DataIngestionLog, City, Weath
 #Requirement: customize 1 model in Django Admin
 @admin.register(SecurityEvent)
 class SecurityEventAdmin(admin.ModelAdmin):
-    list_display = ('category', 'timestamp', 'severity', 'threat_score', 'source')
-    list_filter = ('severity','source','category')
+    list_display = ('category', 'timestamp', 'severity', 'threat_score', 'source','packet_length','action_taken')
+    list_filter = ('severity','source','category', 'action_taken')
     search_fields = ('category__name',)
 
 @admin.register(City)

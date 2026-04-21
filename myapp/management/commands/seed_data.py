@@ -29,6 +29,8 @@ class Command(BaseCommand):
                         defaults = {
                             'severity' : row['Severity Level'].lower(),
                             'threat_score':float(row['Anomaly Scores']),
+                            'packet_length':float(row.get('Packet Length',0.0)),
+                            'action_taken':row.get('Action Taken', 'logged').lower(),
                             'source':'csv'
                         }
                     )
