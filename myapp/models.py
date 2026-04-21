@@ -17,6 +17,19 @@ class SecurityEvent(models.Model):
     #Requirement: At least 1 ForeignKey relationship
     category = models.ForeignKey(AttackCategory, on_delete=models.CASCADE, related_name='events')
     timestamp = models.DateTimeField()
+    packet_length = models.FloatField(null=True, blank=True)
+
+    ACTION_CHOICES = [
+        ('blocked','Blocked'),
+        ('logged','Logged'),
+        ('ignored','Ignored'),
+    ]
+
+    action_taken = models.CharField(
+        max_length =20,
+        choices = ACTION_CHOICES,
+        default='logged'
+    )
 
     #Requirement: At least 1 field with choices
     SEVERITY_CHOICES =[
