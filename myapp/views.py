@@ -3,6 +3,11 @@ from django.core.paginator import Paginator
 from django.contrib import messages
 from .models import SecurityEvent
 from .forms import SecurityEventForm
+import json
+import pandas as pd
+from django.core.management import call_command
+from django.contrib.admin.views.decorators import staff_member_required
+
 
 
 def home(request):
@@ -60,3 +65,57 @@ def record_delete(request, pk):
         messages.success(request, 'Security event deleted successfully.')
         return redirect('record_list')
     return render(request, 'myapp/confirm_delete.html', {'object': event})
+
+
+def analytics(request):
+    """Display analytics dashboard with charts for attack categories, daily trends, and actions taken."""
+    qs = SecurityEvent.objects.values(
+        'category__name', 'timestamp', 'action_taken', 'threat_score', 'packet_length'
+    )
+    df = pd.DataFrame(qs)
+
+    if df.empty:
+        return render(request, 'myapp/analytics.html', {
+            'attack_chart_json': json.dumps({'labels': [], 'values': []}),
+            'trend_chart_json': json.dumps({'labels': [], 'values': []}),
+            'action_chart_json': json.dumps({'labels': [], 'values': []}),
+            'summary': {},
+        })
+
+    attack_counts = df.groupby('category__name').size()
+    daily_counts = df.groupby(df['timestamp'].dt.date).size()
+    action_counts = df.groupby('action_taken').size()
+
+    attack_chart = {
+        'labels': attack_counts.index.tolist(),
+        'values': attack_counts.values.tolist(),
+    }
+
+    trend_chart = {
+        'labels': [str(d) for d in daily_counts.index.tolist()],
+        'values': daily_counts.values.tolist(),
+    }
+
+    action_chart = {
+        'labels': action_counts.index.tolist(),
+        'values': action_counts.values.tolist(),
+    }
+
+    stats_table = df[['threat_score', 'packet_length']].agg(['count', 'mean', 'min', 'max']).round(2).to_dict()
+
+    return render(request, 'myapp/analytics.html', {
+        'attack_chart_json': json.dumps(attack_chart),
+        'trend_chart_json': json.dumps(trend_chart),
+        'action_chart_json': json.dumps(action_chart),
+        'summary': stats_table,
+    })
+
+
+@staff_member_required
+def fetch_view(request):
+    """Trigger the fetch_data management command to import new weather data (staff only)."""
+    if request.method == 'POST':
+        call_command('fetch_data')
+        messages.success(request, 'Weather data fetched successfully.')
+        return redirect('record_list')
+    return render(request, 'myapp/fetch_done.html')
