@@ -1,0 +1,34 @@
+body {
+    background-color: #f8f9fa;
+}
+
+main.container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.08);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.08);
+}
+
+.table th {
+    background-color: #212529;
+    color: white;
+}
+
+h1, h2 {
+    margin-bottom: 1rem;
+}
+
+canvas {
+    max-width: 100%;
+}
