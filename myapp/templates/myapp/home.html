@@ -1,0 +1,15 @@
+{% extends "myapp/base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>Security Event Tracker</h1>
+<p>This application tracks and analyzes security events from network traffic data.</p>
+
+<h2>Navigation</h2>
+<ul>
+    <li><a href="{% url 'record_list' %}">Browse Security Events</a></li>
+    <li><a href="{% url 'record_create' %}">Add New Event</a></li>
+    <li><a href="{% url 'analytics' %}">Analytics Dashboard</a></li>
+</ul>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "myapp/base.html" %}
+
+{% block content %}
+<h1>{{ object.category.name }}</h1>
+<p>Timestamp: {{ object.timestamp }}</p>
+<p>Severity: {% if object.severity == 'critical' %}CRITICAL{% else %}{{ object.get_severity_display }}{% endif %}</p>
+<p>Source: {{ object.get_source_display }}</p>
+<p>Threat Score: {{ object.threat_score }}</p>
+<p>Packet Length: {{ object.packet_length }}</p>
+<p>Action Taken: {{ object.get_action_taken_display }}</p>
+
+<p><a href="{% url 'record_update' pk=object.pk %}">Edit</a></p>
+<p><a href="{% url 'record_delete' pk=object.pk %}">Delete</a></p>
+<p><a href="{% url 'record_list' %}">Back to List</a></p>
+{% endblock %}

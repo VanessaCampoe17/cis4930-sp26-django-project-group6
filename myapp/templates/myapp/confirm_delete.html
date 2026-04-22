@@ -1,0 +1,12 @@
+{% extends "myapp/base.html" %}
+
+{% block content %}
+<h1>Delete Security Event</h1>
+<p>Are you sure you want to delete this event?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, Delete</button>
+    <a href="{% url 'record_detail' pk=object.pk %}">Cancel</a>
+</form>
+{% endblock %}
