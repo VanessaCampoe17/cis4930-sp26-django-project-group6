@@ -6,7 +6,7 @@ from .models import SecurityEvent
 class SecurityEventForm(forms.ModelForm):
     class Meta:
         model = SecurityEvent
-        fields = ['category', 'timestamp', 'severity', 'source', 'threat_score']
+        fields = ['category', 'timestamp', 'severity', 'source', 'threat_score', 'packet_length', 'action_taken']
         widgets = {
             'timestamp': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
