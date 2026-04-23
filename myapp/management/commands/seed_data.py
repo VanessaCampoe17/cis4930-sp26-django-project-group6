@@ -9,7 +9,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # define path to CSV'
-        csv_file_path = os.path.join(settings.BASE_DIR,'..','data','raw','cybersecurity_attacks.csv')
+        csv_file_path = os.path.join(settings.BASE_DIR,'data','raw','cybersecurity_attacks.csv')
 
         self.stdout.write(f"Loading data from: {csv_file_path}")
 
