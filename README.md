@@ -21,10 +21,10 @@ Cybersecurity incidents have become one of the biggest real-world problems in mo
 ## Application Features
 - Homepage (`/`) with a short description of the project and navigation links
 - Records list page (`/records/`) with pagination
-- Detail view for a single security event (`/records/<pk>/`)
+- Detail view for a single security event (`/records/{id}/`)
 - Create view for adding a new security event (`/records/add/`)
-- Update view for editing an existing record (`/records/<pk>/edit/`)
-- Delete view with confirmation page (`/records/<pk>/delete/`)
+- Update view for editing an existing record (`/records/{id}/edit/`)
+- Delete view with confirmation page (`/records/{id}/delete/`)
 - Analytics dashboard (`/analytics/`) with Chart.js charts and summary statistics
 - Bootstrap 5 navbar, cards, tables, and form styling
 - Custom CSS overrides in `static/css/style.css`
@@ -39,7 +39,7 @@ Cybersecurity incidents have become one of the biggest real-world problems in mo
 ## Setup Instructions
 1. **Clone the repository**
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/VanessaCampoe17/cis4930-sp26-django-project-group6.git
    cd cis4930-sp26-django-project-group6
    ```
 
